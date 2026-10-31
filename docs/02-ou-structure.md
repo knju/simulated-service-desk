@@ -1,4 +1,4 @@
-# 04 — Organizational Unit (OU) Structure & Data Population
+# 02 — Organizational Unit (OU) Structure & Data Population
 
 ## Objective
 Design and implement an Organizational Unit (OU) hierarchy that mirrors a standard enterprise business structure. This structure will serve as the foundation for delegating administrative control (Phase 5) and automating identity lifecycles (Phase 6).

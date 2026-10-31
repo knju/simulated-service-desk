@@ -1,4 +1,4 @@
-# 03 — Active Directory Domain Services (AD DS) Setup
+# 01 — Active Directory Domain Services (AD DS) Setup
 
 ## Objective
 Stand up a primary Domain Controller (DC) for the `knju.lab` forest to serve as the centralized identity management and authentication backbone for the simulated enterprise environment.

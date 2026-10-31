@@ -1,4 +1,4 @@
-# 05 — Delegation of Control & Least Privilege
+# 03 — Delegation of Control & Least Privilege
 
 ## Objective
 Grant the `Helpdesk-Team` the ability to perform daily L2 support tasks (password resets, account unlocks, group membership changes) within the `Sales` OU, without granting them Domain Admin or Full Control over the OU. 

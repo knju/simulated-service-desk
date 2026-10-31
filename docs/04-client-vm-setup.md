@@ -1,4 +1,4 @@
-# 06 — Client Workstation Setup & Domain Join
+# 04 — Client Workstation Setup & Domain Join
 
 ## Objective
 Provision a standard Windows 10/11 client workstation (`knjuLAB-W10`) to simulate the environment used by the Helpdesk technician. This VM will be used to verify that the delegation of control boundaries configured on the Domain Controller operate correctly from a standard, non-privileged endpoint.
