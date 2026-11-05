@@ -1,6 +1,6 @@
 # New-StarterOnboarding.ps1
 
-# 1. Define the CSV path (Change this if you saved it elsewhere)
+# 1. Define the CSV path
 $CsvPath = "C:\Scripts\NewUsers.csv"
 
 # 2. Define the Default Password (must meet complexity requirements)

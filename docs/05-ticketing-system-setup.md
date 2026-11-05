@@ -53,7 +53,7 @@ Defined the Service Level Agreements in the **Admin Panel > Manage > SLA Plans**
 ## Problems Encountered
 ### Issue 1: Ubuntu 26.04.1 PHP Repository Migration
 **Symptom:** Attempting to add the `ondrej/php` PPA failed with `404 Not Found` for the `resolute` release.
-**Resolution:** Removed the broken PPA source list and manually added the new Sury repository (`packages.sury.org`), which provides the required PHP 8.2 packages for Ubuntu 26.04.1.
+**Resolution:** Removed the broken PPA source list and manually added the new Sury repository (`packages.sury.org`), which provides the required PHP 8.3 packages for Ubuntu 26.04.1.
 ### Issue 2: "Strong(er) authentication required" (Server 2025 Defaults)
 **Symptom:** Attempting to bind to the DC on standard LDAP port 389 returned: `Bind failed: Strong(er) authentication required: Unable to bind to server`.
 **Root Cause:** Windows Server 2025 strictly enforces LDAP signing by default. It rejects basic, unencrypted LDAP binds unless the connection is secured via TLS (LDAPS).
@@ -75,7 +75,3 @@ Defined the Service Level Agreements in the **Admin Panel > Manage > SLA Plans**
 ![Successful Agent Login](../images/osticket-login-success-ldap.png)
 - **SLA Enforcement:** Created a test ticket via the client portal. The agent dashboard correctly displayed the SLA due time based on the assigned Help Topic.
 
-## Key Takeaways
-- **Local Admin Fallback:** Always maintain a local administrator account in osTicket. If the Domain Controller goes down for maintenance, LDAP logins will fail, and you need a way to access the system.
-- **The Power of Search Base:** Setting the Search Base to `OU=CORP,DC=knju,DC=lab` scopes the LDAP query to the relevant organizational unit, keeping the lookup fast and secure.
-- **Documentation is Key:** The integration steps (especially the LDAP configuration strings) are complex. Documenting them creates a repeatable runbook for future deployments.

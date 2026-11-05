@@ -27,7 +27,6 @@ A standard Windows client does not have the Active Directory management tools in
 ```powershell
 Add-WindowsCapability –online –Name "Rsat.ActiveDirectory.DS-LDS.Tools~~~~0.0.1.0"
 ```
-## Key Takeaways
-- **DNS is the backbone of Active Directory.** The domain join initially failed because I attempted it before changing the client's DNS to point to the DC. Once the DNS was corrected, authentication and domain joining worked instantly.
-- **Separation of Duties.** By running these tests from a standard client workstation rather than the Domain Controller itself, I proved that the permissions are tied strictly to the user's account (`test.helpdesk`) and the ACLs applied to the OU, not the physical machine being used.
-- **The negative test is the ultimate proof.** It is easy to configure a permission and assume it works. Actively attempting to breach the boundary (resetting the HR user's password) and receiving a hard "Access Denied" is the only way to prove the security scope is correctly locked down.
+
+### 4. Final Steps
+After rebooting once more, I signed into the Domain with the Helpdesk user (`test.helpdesk`) account.

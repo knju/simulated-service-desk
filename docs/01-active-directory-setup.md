@@ -36,19 +36,14 @@ Before installing any roles, I configured the server's foundation:
 **DNS Delegation Warning:**
 During the promotion wizard (DNS Options page), I received a yellow warning: *"A delegation for this DNS server cannot be created because the authoritative parent zone cannot be found..."*
 - **Root Cause:** This occurs because I am creating a brand new, isolated root domain (`knju.lab`). The wizard is trying to find a parent DNS zone (like `.com` or `.local`) to delegate to, which does not exist in this lab environment.
-- **Resolution:** This is expected behavior for a new forest. I left the **"Create DNS delegation"** box unchecked and proceeded. No action was required.
+- **Resolution:** After reading through Microsoft's own documentation and realising that this is expected, I left the **"Create DNS delegation"** box unchecked and proceeded. No action was required.
 
 **External DNS Resolution (The Forwarder Rule):**
 I initially questioned how the server would resolve external domain names (like `google.com`) if its DNS client points to itself. 
-- **Resolution:** The DNS *client* setting on the NIC points to the server itself so it can resolve internal AD queries. To resolve external names, I configured a **DNS Forwarder** inside the DNS Manager console, pointing to an upstream public DNS (e.g., `8.8.8.8`). This separation allows internal AD resolution and internet access to coexist without breaking the domain.
+- **Resolution:** The DNS *client* setting on the NIC points to the server itself so it can resolve internal AD queries. However, this leads to the forest being unable to resolve external domains, which forced me to read through more [Microsoft documentation.](https://learn.microsoft.com/en-us/powershell/module/dnsserver/set-dnsserverforwarder?view=windowsserver2025-ps) I configured a **DNS Forwarder** from PowerShell, pointing to an upstream public DNS (e.g., `8.8.8.8`). This separation allows internal AD resolution and internet access to coexist without breaking the domain.
 
 ## Verification
 After the automatic reboot, I logged in using the new domain administrator credentials (`KNJU\Administrator`). 
 - Opened Server Manager and confirmed that **AD DS** and **DNS** roles are listed on the dashboard.
 - Opened Active Directory Users and Computers (ADUC) and verified the `knju.lab` domain tree is visible.
 - Ran `nslookup www.google.com` on the DC, which successfully returned a public IP address via the configured `8.8.8.8` forwarder.
-
-## Key Takeaways
-- **The Local Admin account is replaced.** After promotion, the local `Administrator` account becomes the Domain Administrator. If the domain is unreachable, the only way to log in is using the DSRM password (via Directory Services Restore Mode).
-- **Promotion is a one-way operation.** You cannot easily "un-promote" a domain controller. Taking a VM snapshot before running the wizard is a critical best practice.
-- **DNS Client vs. DNS Server.** Understanding that the NIC's DNS setting and the DNS Manager's Forwarders are two separate layers is crucial for keeping AD functional while maintaining internet connectivity.

@@ -6,10 +6,10 @@ Configure Service Level Agreements (SLAs) and business schedules in osTicket to 
 ## Environment
 - **Platform:** osTicket (v1.18.1)
 - **Access:** Admin Panel
-- **Prerequisite:** Active Directory Integration (Phase 7)
+- **Prerequisite:** Active Directory Integration (Phase 5)
 
 ## Design Rationale
-An SLA is not just a number; it is a business contract. To prevent "false breaches" (where a ticket breaches SLA over the weekend while no one is working), I separated the SLAs into two categories based on severity:
+An SLA is fundamentally a business contract. To prevent "false breaches" (where a ticket breaches SLA over the weekend while no one is working), I separated the SLAs into two categories based on severity:
 - **Critical (Sev-A/B):** 24/7 clocks. These represent major outages that require immediate mobilization.
 - **Moderate (Sev-C/D):** Business-hours clocks. These represent single-user issues that should be addressed during normal working hours.
 
@@ -37,10 +37,4 @@ Created Help Topics in **Admin Panel > Manage > Help Topics**:
 ## Verification
 - **Test:** Created a test ticket via the Client Portal using the `Password Reset` Help Topic.
 - **Result:** The ticket correctly displayed `SLA: Sev-C` and the due time reflected an 8-business-hour window. Had I created it under `Network Outage`, it would have assigned `Sev-A` with a 1-hour 24/7 clock.
--  **Screenshot:** 
 ![Ticket SLA Timer](../images/sla-timer-visible.png)
-
-## Key Takeaways
-- **Schedules prevent false breaches.** Without schedules, a "4-hour" SLA on a Friday evening would expire by Saturday morning, creating false breaches and skewing metrics.
-- **Help Topics are the automation engine.** By binding SLAs to Help Topics, the system enforces the rules at the moment of ticket creation, removing the risk of human error during triage.
-- **Transient vs. Fixed SLAs.** Leaving the "Transient" box unchecked ensures the SLA is locked to the ticket. If it were transient, a Department transfer could reset the clock, invalidating the agreement.
